@@ -1,0 +1,21 @@
+# Bootstrap files (too large for git)
+*.tar.gz
+*.zip
+*.7z
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp files
+*.tmp
+*.temp
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
