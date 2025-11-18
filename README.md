@@ -75,6 +75,32 @@ All bootstrap files are available in the **Releases** section. Each release incl
 
 ---
 
+## ⚠️ DISCLAIMER
+
+**USE AT YOUR OWN RISK**
+
+This bootstrap is provided "AS IS" without warranty of any kind, either express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement.
+
+**Important Points:**
+
+1. **Community Maintained**: This bootstrap is maintained by community volunteers. There is no guarantee of availability, accuracy, or continued updates.
+
+2. **No Warranty**: The creators and maintainers of this bootstrap make no guarantees about the correctness, completeness, or integrity of the blockchain data provided.
+
+3. **Backup Your Wallet**: ALWAYS backup your `wallet.dat` file before using any bootstrap. Loss of your wallet file means permanent loss of your funds.
+
+4. **Verify Checksums**: Always verify SHA256 checksums before extraction to ensure file integrity. Do not skip this step.
+
+5. **No Liability**: In no event shall the authors or maintainers be liable for any claim, damages, or other liability arising from the use of this bootstrap.
+
+6. **Security**: While every effort is made to provide secure and accurate blockchain data, you should verify the authenticity of downloads and use trusted sources only.
+
+7. **Node Sync**: After bootstrap installation, your node must still sync remaining blocks. The bootstrap does not guarantee instant synchronization.
+
+**By downloading and using this bootstrap, you acknowledge that you have read this disclaimer and agree to use it at your own risk.**
+
+---
+
 ## ⚠️ Important Safety Notes
 
 1. **ALWAYS backup your wallet.dat** before using bootstrap
