@@ -1,167 +1,135 @@
-# Zclassic Blockchain Bootstrap
+# Zclassic Bootstrap
 
-Fast sync your Zclassic node with pre-synced blockchain data. Save hours of syncing time!
+Fast-sync your Zclassic node with pre-downloaded blockchain data.
 
-## ⚡ Latest Bootstrap
+## Current Bootstrap
 
-**📅 Date**: November 18, 2025
-**📊 Block Height**: 2,914,022
-**💾 Size**: 7.73 GB (compressed with zstd)
-**🔗 Download**: [**Latest Release**](https://github.com/VictorLux/zclassic-bootstrap/releases/latest)
+- **Block Height**: 2,916,559
+- **Date**: 2025-11-20
+- **Total Size**: 7.8 GB (compressed)
+- **Parts**: 5 files
 
-> **🎯 For Zipher Wallet Users**: The bootstrap is **automatically** offered during first launch!
+## Download
 
----
+### Automatic (via Zipher Wallet)
+The Zipher wallet will automatically download and install this bootstrap when needed.
 
-## 📥 Download Latest Bootstrap
+### Manual Download
 
-### → [**Go to Releases Page**](https://github.com/VictorLux/zclassic-bootstrap/releases) ←
+#### Option 1: Using GitHub CLI (Recommended)
+```bash
+# Download the helper script
+gh release download --repo VictorLux/zclassic-bootstrap --pattern "download-and-combine.sh"
+chmod +x download-and-combine.sh
+./download-and-combine.sh
+```
 
-All bootstrap files are available in the **Releases** section. Each release includes:
-- 5 split archive files (to accommodate GitHub's 2GB limit)
-- SHA256 checksums for verification
-- Detailed installation instructions
+#### Option 2: Manual Download
+1. Go to the [latest release](https://github.com/VictorLux/zclassic-bootstrap/releases/latest)
+2. Download all `zclassic-bootstrap-*-part-*.part` files
+3. Download `bootstrap-checksums.txt`
+4. Verify checksums: `shasum -a 256 -c bootstrap-checksums.txt`
+5. Combine parts: `cat zclassic-bootstrap-*-part-*.part > zclassic-bootstrap.tar.zst`
 
----
+## Installation
 
-## 🚀 Quick Installation
+### macOS
+```bash
+# Stop zclassicd if running
+pkill zclassicd
 
-### For Zipher Wallet Users
+# Backup your wallet first!
+cp "$HOME/Library/Application Support/Zclassic/wallet.dat" ~/wallet.dat.backup
 
-**Zipher automatically handles bootstrap installation!**
-- On first launch, Zipher detects if blockchain data is missing
-- Offers to download and install the bootstrap automatically
-- Shows progress during download, verification, and extraction
+# Extract bootstrap
+cd "$HOME/Library/Application Support/Zclassic"
+zstd -d ~/Downloads/zclassic-bootstrap.tar.zst -o - | tar -x --strip-components=1
 
-### For Command-Line Users
+# Start zclassicd
+zclassicd
+```
 
-1. **Download the latest release** from the [Releases page](https://github.com/VictorLux/zclassic-bootstrap/releases)
+### Linux
+```bash
+# Stop zclassicd if running
+pkill zclassicd
 
-2. **Download all 5 parts** (part-01 through part-05)
+# Backup your wallet first!
+cp ~/.zclassic/wallet.dat ~/wallet.dat.backup
 
-3. **Verify checksums**:
-   ```bash
-   sha256sum -c bootstrap-checksums.txt
-   ```
+# Extract bootstrap
+cd ~/.zclassic
+zstd -d ~/Downloads/zclassic-bootstrap.tar.zst -o - | tar -x --strip-components=1
 
-4. **Combine parts**:
-   ```bash
-   cat zclassic-bootstrap-*-part-*.part > zclassic-bootstrap.tar.zst
-   ```
+# Start zclassicd
+zclassicd
+```
 
-5. **Extract to Zclassic data directory**:
-   ```bash
-   # macOS
-   tar --use-compress-program=zstd -xf zclassic-bootstrap.tar.zst \
-     -C ~/Library/Application\ Support/Zclassic/
+### Windows
+```powershell
+# Stop zclassicd if running
+# Use Task Manager or: taskkill /IM zclassicd.exe /F
 
-   # Linux
-   tar --use-compress-program=zstd -xf zclassic-bootstrap.tar.zst \
-     -C ~/.zclassic/
-   ```
+# Backup your wallet first!
+# Copy %APPDATA%\Zclassic\wallet.dat to a safe location
 
-6. **Start your daemon**:
-   ```bash
-   zclassicd -daemon
-   ```
+# Extract bootstrap to %APPDATA%\Zclassic
+# Use 7-Zip with zstd plugin or WSL
+```
 
----
+## File List
 
-## 📂 Default Data Directory Locations
+- `zclassic-bootstrap-block-2916559-20251120_201519-part-01.part` (1.9G)
+- `zclassic-bootstrap-block-2916559-20251120_201519-part-02.part` (1.9G)
+- `zclassic-bootstrap-block-2916559-20251120_201519-part-03.part` (1.9G)
+- `zclassic-bootstrap-block-2916559-20251120_201519-part-04.part` (1.9G)
+- `zclassic-bootstrap-block-2916559-20251120_201519-part-05.part` (313M)
+- `bootstrap-checksums.txt`
+- `download-and-combine.sh`
+- `BOOTSTRAP_README.md`
 
-- **Windows**: `%APPDATA%\ZClassic\`
-- **macOS**: `~/Library/Application Support/Zclassic/`
-- **Linux**: `~/.zclassic/`
+## Checksums
 
----
+```
+0d6b91970980ec6278fa729ceafd5715cd6ae4860150aa1a015e24b7d80f54eb  zclassic-bootstrap-block-2916559-20251120_201519-part-01.part
+bff55ee9003fa642148a49e1f00d9a4f557fd4682c010c88976aa6c4e6d3163a  zclassic-bootstrap-block-2916559-20251120_201519-part-02.part
+1b37ef1de7a7acb477c6b5ec54494ed6d04a594a777a6970aea536b8b5c556b8  zclassic-bootstrap-block-2916559-20251120_201519-part-03.part
+7236b2baac22e64ccf7842d4d5aeaa110551ea41daa77b14db9e7704dc9fd2d1  zclassic-bootstrap-block-2916559-20251120_201519-part-04.part
+5d252c85f29888e3aa0bedf3ab74b17a99fe75558d34e17da403677bca2160b8  zclassic-bootstrap-block-2916559-20251120_201519-part-05.part
+```
 
-## ⚠️ DISCLAIMER
+## Archive Contents
 
-**USE AT YOUR OWN RISK**
+- **blocks/** - Blockchain data files
+- **blocks/index/** - Block index database (LevelDB)
+- **chainstate/** - UTXO set database (LevelDB)
 
-This bootstrap is provided "AS IS" without warranty of any kind, either express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement.
+## Compression
 
-**Important Points:**
+- Algorithm: zstd
+- Level: 19 (maximum compression)
+- Ratio: ~50% better than gzip
 
-1. **Community Maintained**: This bootstrap is maintained by community volunteers. There is no guarantee of availability, accuracy, or continued updates.
+## Requirements
 
-2. **No Warranty**: The creators and maintainers of this bootstrap make no guarantees about the correctness, completeness, or integrity of the blockchain data provided.
-
-3. **Backup Your Wallet**: ALWAYS backup your `wallet.dat` file before using any bootstrap. Loss of your wallet file means permanent loss of your funds.
-
-4. **Verify Checksums**: Always verify SHA256 checksums before extraction to ensure file integrity. Do not skip this step.
-
-5. **No Liability**: In no event shall the authors or maintainers be liable for any claim, damages, or other liability arising from the use of this bootstrap.
-
-6. **Security**: While every effort is made to provide secure and accurate blockchain data, you should verify the authenticity of downloads and use trusted sources only.
-
-7. **Node Sync**: After bootstrap installation, your node must still sync remaining blocks. The bootstrap does not guarantee instant synchronization.
-
-**By downloading and using this bootstrap, you acknowledge that you have read this disclaimer and agree to use it at your own risk.**
-
----
-
-## ⚠️ Important Safety Notes
-
-1. **ALWAYS backup your wallet.dat** before using bootstrap
-2. The bootstrap **does NOT contain your wallet** - your private keys stay safe
-3. After extracting, your node will sync remaining blocks (usually under 1 hour)
-4. Always verify SHA256 checksums before extraction
-5. Compatible with Zclassic Core 1.x and Zipher wallet
-
----
-
-## 🔧 Troubleshooting
-
-### "No such file or directory" when extracting
-- Install zstd:
+- Enough disk space for extraction (~13 GB)
+- zstd installed:
   - macOS: `brew install zstd`
-  - Linux: `apt install zstd` or `yum install zstd`
+  - Ubuntu/Debian: `apt install zstd`
+  - Windows: Download from [zstd releases](https://github.com/facebook/zstd/releases)
+- Stopped zclassicd daemon
 
-### Node won't start after bootstrap
-- Check debug.log: `tail -f ~/.zclassic/debug.log`
-- Try running with reindex: `zclassicd -daemon -reindex`
+## ⚠️ Important
 
-### Download speed too slow?
-All 5 parts can be downloaded **in parallel** for faster speeds!
+- **Always backup wallet.dat before using bootstrap**
+- Verify SHA256 checksums before extraction
+- Compatible with Zclassic Core 1.x and Zipher wallet
 
----
+## Links
 
-## 🆘 Support
-
-- **GitHub Issues**: [Report problems](https://github.com/VictorLux/zclassic-bootstrap/issues)
-- **Zipher Wallet**: [https://github.com/VictorLux/Zipher](https://github.com/VictorLux/Zipher)
-- **Zclassic Community**: [Official Links](https://zclassic-ce.org)
+- [Zipher Wallet](https://github.com/VictorLux/Zipher) - Modern Zclassic wallet with automatic bootstrap
+- [Zclassic](https://zclassic.org/) - Official Zclassic website
 
 ---
 
-## 📊 Why Use Bootstrap?
-
-| Method | Time | Bandwidth | Difficulty |
-|--------|------|-----------|------------|
-| **Bootstrap** | ~30 minutes | 7.73 GB | Easy ✅ |
-| **Full Sync** | 12-48 hours | 8+ GB | Medium |
-
----
-
-## 🔄 Update Frequency
-
-Bootstraps are created periodically (approximately monthly or after significant network updates). Check the [Releases page](https://github.com/VictorLux/zclassic-bootstrap/releases) for the latest version.
-
----
-
-## 📝 Technical Details
-
-- **Compression**: zstd level 19 (50% better than gzip)
-- **Split Files**: 5 parts to work around GitHub's 2GB limit
-- **Contents**: `blocks/` and `chainstate/` directories
-- **Index Status**: Pre-built and verified
-- **Verification**: SHA256 checksums for each file
-
----
-
-## 🙏 Credits
-
-Bootstrap created and maintained by [@VictorLux](https://github.com/VictorLux) for the Zclassic community.
-
-**Last Updated**: November 18, 2025
+🤖 Generated with Zipher Bootstrap Creator
