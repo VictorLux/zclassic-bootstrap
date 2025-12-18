@@ -1,174 +1,64 @@
 # Zclassic Bootstrap
 
-Fast-sync your Zclassic node with pre-downloaded blockchain data.
+Pre-synced blockchain data for fast Zclassic node setup.
 
-## Current Bootstrap
+## Latest Bootstrap
 
-- **Block Height**: 2933984
-- **Date**: 2025-12-06
-- **Total Size**: 7.8G (compressed)
-- **Parts**: 5 files
+| Version | Block Height | Date | Size |
+|---------|--------------|------|------|
+| [v20251218](https://github.com/VictorLux/zclassic-bootstrap/releases/tag/v20251218) | unknown | 2025-12-18 | 7.8G |
 
-## Zcash Parameters
+## Quick Start
 
-Cryptographic parameters required by zclassicd for shielded transactions.
+### Using Zipher Wallet (Recommended)
+[Zipher Wallet](https://github.com/VictorLux/Zipher) can automatically download and install the bootstrap.
 
-- **Release**: [zcash-params-v1](https://github.com/VictorLux/zclassic-bootstrap/releases/tag/zcash-params-v1)
-- **Total Size**: 1.54 GB (compressed) / 1.69 GB (uncompressed)
-- **Compression**: zstd level 19
+### Manual Installation
 
-### Files
+1. **Stop the daemon**
+   ```bash
+   zclassic-cli stop
+   ```
 
-| File | Compressed | Original | Purpose |
-|------|------------|----------|---------|
-| sapling-spend.params.zst | 45 MB | 47 MB | Prove shielded spends |
-| sapling-output.params.zst | 3.2 MB | 3.5 MB | Create shielded outputs |
-| sprout-groth16.params.zst | 655 MB | 725 MB | Legacy Sprout proofs |
-| sprout-proving.key.zst | 837 MB | 868 MB | Generate Sprout proofs |
-| sprout-verifying.key.zst | 1.4 KB | 1.4 KB | Verify Sprout proofs |
+2. **Download all parts** from the [latest release](https://github.com/VictorLux/zclassic-bootstrap/releases/latest)
 
-### Installation Location
+3. **Merge and extract**
+   ```bash
+   cat zclassic-bootstrap-*.tar.zst.part* > bootstrap.tar.zst
+   zstd -d bootstrap.tar.zst
+   tar -xf bootstrap.tar
+   ```
 
-- **macOS**: `~/Library/Application Support/ZcashParams/`
-- **Linux**: `~/.zcash-params/`
-- **Windows**: `%APPDATA%\ZcashParams\`
+4. **Copy to Zclassic directory**
+   ```bash
+   # macOS
+   cp -R zclassic-bootstrap-*/* ~/Library/Application\ Support/Zclassic/
 
-The ZipherX wallet automatically downloads and installs these parameters during bootstrap.
+   # Linux
+   cp -R zclassic-bootstrap-*/* ~/.zclassic/
+   ```
 
-## Download
+5. **Start the daemon**
+   ```bash
+   zclassicd -daemon
+   ```
 
-### Automatic (via ZipherX Wallet)
-The ZipherX wallet will automatically download and install this bootstrap when needed.
+## Verification
 
-### Manual Download
-
-#### Option 1: Using GitHub CLI (Recommended)
+Verify file integrity using checksums:
 ```bash
-# Download the helper script
-gh release download --repo VictorLux/zclassic-bootstrap --pattern "download-and-combine.sh"
-chmod +x download-and-combine.sh
-./download-and-combine.sh
+shasum -a 256 -c checksums.txt
 ```
-
-#### Option 2: Manual Download
-1. Go to the [latest release](https://github.com/VictorLux/zclassic-bootstrap/releases/latest)
-2. Download all `zclassic-bootstrap-*-part-*.part` files
-3. Download `bootstrap-checksums.txt`
-4. Verify checksums: `shasum -a 256 -c bootstrap-checksums.txt`
-5. Combine parts: `cat zclassic-bootstrap-*-part-*.part > zclassic-bootstrap.tar.zst`
-
-## Installation
-
-### macOS
-```bash
-# Stop zclassicd if running
-pkill zclassicd
-
-# Backup your wallet first!
-cp "$HOME/Library/Application Support/Zclassic/wallet.dat" ~/wallet.dat.backup
-
-# Extract bootstrap
-cd "$HOME/Library/Application Support/Zclassic"
-zstd -d ~/Downloads/zclassic-bootstrap.tar.zst -o - | tar -x --strip-components=1
-
-# Start zclassicd
-zclassicd
-```
-
-### Linux
-```bash
-# Stop zclassicd if running
-pkill zclassicd
-
-# Backup your wallet first!
-cp ~/.zclassic/wallet.dat ~/wallet.dat.backup
-
-# Extract bootstrap
-cd ~/.zclassic
-zstd -d ~/Downloads/zclassic-bootstrap.tar.zst -o - | tar -x --strip-components=1
-
-# Start zclassicd
-zclassicd
-```
-
-### Windows (PowerShell)
-```powershell
-# Stop zclassicd if running
-taskkill /IM zclassicd.exe /F 2>nul
-
-# Backup your wallet first!
-copy "%APPDATA%\Zclassic\wallet.dat" "%USERPROFILE%\wallet.dat.backup"
-
-# Install zstd if not present (using winget or chocolatey)
-# winget install Facebook.zstd
-# OR: choco install zstd
-
-# Navigate to Zclassic data directory
-cd %APPDATA%\Zclassic
-
-# Extract bootstrap (requires zstd in PATH)
-zstd -d "%USERPROFILE%\Downloads\zclassic-bootstrap.tar.zst" -o - | tar -xf -
-
-# Alternative: Use WSL if available
-# wsl zstd -d ~/Downloads/zclassic-bootstrap.tar.zst -o - | wsl tar -x --strip-components=1
-
-# Start zclassicd
-zclassicd
-```
-
-## File List
-
-- `zclassic-bootstrap-block-2933984-20251206_052149-part-01.part` (1.9G)
-- `zclassic-bootstrap-block-2933984-20251206_052149-part-02.part` (1.9G)
-- `zclassic-bootstrap-block-2933984-20251206_052149-part-03.part` (1.9G)
-- `zclassic-bootstrap-block-2933984-20251206_052149-part-04.part` (1.9G)
-- `zclassic-bootstrap-block-2933984-20251206_052149-part-05.part` (318M)
-- `bootstrap-checksums.txt`
-- `download-and-combine.sh`
-- `BOOTSTRAP_README.md`
-
-## Checksums
-
-```
-c6fc052add092c186f0cfe2e136b61b1e79c45d5c504c97c4a5522fddea334b7  zclassic-bootstrap-block-2933984-20251206_052149-part-01.part
-2d11a48c027271addb13a881498185938252b636e6844d64684b78d4d74f1b79  zclassic-bootstrap-block-2933984-20251206_052149-part-02.part
-6a4d818f3654ff7583ae9487f98e5e47bce81b0012530ede0bdbcb2423a6dcec  zclassic-bootstrap-block-2933984-20251206_052149-part-03.part
-6e6bdfacb333abd95bc162bb19e904d2b377550929166ac175692239e7d23055  zclassic-bootstrap-block-2933984-20251206_052149-part-04.part
-0c5018efb15859a88955101ad618adbb38e62ef81ce4de1f62a7e699a6f15bf7  zclassic-bootstrap-block-2933984-20251206_052149-part-05.part
-```
-
-## Archive Contents
-
-- **blocks/** - Blockchain data files
-- **blocks/index/** - Block index database (LevelDB)
-- **chainstate/** - UTXO set database (LevelDB)
-
-## Compression
-
-- Algorithm: zstd
-- Level: 19 (maximum compression)
-- Ratio: ~50% better than gzip
 
 ## Requirements
 
-- Enough disk space for extraction (~13 GB)
-- zstd installed:
-  - macOS: `brew install zstd`
-  - Ubuntu/Debian: `apt install zstd`
-  - Windows: Download from [zstd releases](https://github.com/facebook/zstd/releases)
-- Stopped zclassicd daemon
-
-## ⚠️ Important
-
-- **Always backup wallet.dat before using bootstrap**
-- Verify SHA256 checksums before extraction
-- Compatible with Zclassic Core 1.x and ZipherX wallet
+- **zstd** for decompression: `brew install zstd` (macOS) or `apt install zstd` (Linux)
+- ~10GB free disk space
 
 ## Links
 
-- [ZipherX Wallet](https://github.com/VictorLux/ZipherX) - Modern Zclassic wallet with automatic bootstrap
-- [Zclassic](https://zclassic.org/) - Official Zclassic website
+- [Zclassic](https://zclassic.org)
+- [Zipher Wallet](https://github.com/VictorLux/Zipher)
 
 ---
-
-🤖 Generated with ZipherX Bootstrap Creator
+*Bootstrap created with [Zipher Wallet](https://github.com/VictorLux/Zipher)*
