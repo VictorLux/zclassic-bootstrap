@@ -10,8 +10,8 @@ Pre-synced blockchain data for fast Zclassic node setup.
 
 ## Quick Start
 
-### Using Zipher Wallet (Recommended)
-[Zipher Wallet](https://github.com/VictorLux/Zipher) can automatically download and install the bootstrap.
+### Using ZipherX Wallet (Recommended)
+[ZipherX Wallet](https://github.com/VictorLux/ZipherX) can automatically download and install the bootstrap.
 
 ### Manual Installation
 
@@ -58,7 +58,7 @@ shasum -a 256 -c checksums.txt
 ## Links
 
 - [Zclassic](https://zclassic.org)
-- [Zipher Wallet](https://github.com/VictorLux/Zipher)
+- [ZipherX Wallet](https://github.com/VictorLux/ZipherX)
 
 ---
-*Bootstrap created with [Zipher Wallet](https://github.com/VictorLux/Zipher)*
+*Bootstrap created with [ZipherX Wallet](https://github.com/VictorLux/ZipherX)*
