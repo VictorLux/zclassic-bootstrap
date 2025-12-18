@@ -6,7 +6,7 @@ Pre-synced blockchain data for fast Zclassic node setup.
 
 | Version | Block Height | Date | Size |
 |---------|--------------|------|------|
-| [v20251218](https://github.com/VictorLux/zclassic-bootstrap/releases/tag/v20251218) | 2947522 | 2025-12-18 | 7.8G |
+| [v20251218](https://github.com/VictorLux/zclassic-bootstrap/releases/tag/v20251218) | 49 (estimated from files) | 2025-12-18 | 7.9G |
 
 ## Quick Start
 
