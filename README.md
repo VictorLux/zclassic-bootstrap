@@ -59,6 +59,7 @@ shasum -a 256 -c checksums.txt
 
 - [Zclassic](https://zclassic.org)
 - [ZipherX Wallet](https://github.com/VictorLux/ZipherX)
+- [ZipherPunk](https://zipherpunk.com/)
 
 ---
-*Bootstrap created with [ZipherX Wallet](https://github.com/VictorLux/ZipherX)*
+*Created by [ZipherPunk](https://zipherpunk.com/)*
